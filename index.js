@@ -1,15 +1,13 @@
 const fs = require('fs')
 
-if(!fs.existsSync('token.txt')) {
-  console.error('Укажите токен в файле token.txt')
-  process.exit()
-}
-
-const token = fs.readFileSync('token.txt').toString().trim()
-
 const base = 'https://discord.com/api/v9'
-const headers = {
-  Authorization: token
+const headers = {}
+
+if(fs.existsSync('token.txt')) {
+  let token = fs.readFileSync('token.txt').toString().trim()
+  headers.Authorization = token
+} else {
+  console.error('Для полной работы необходимо указать токен в файле token.txt')
 }
 
 const fetch = require('node-fetch')
